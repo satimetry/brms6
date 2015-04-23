@@ -1,0 +1,32 @@
+package com.satimetry.fifo;
+
+import org.json.JSONObject;
+import java.util.Date; 
+import java.text.SimpleDateFormat;
+import com.satimetry.fifo.Observation;
+
+rule "ruleInsertObservation"
+	salience 10000
+when
+    	fact : Fact( factname == "Observation" )
+then
+        JSONObject factjson = new JSONObject( fact.getFactjson( ).toString( ) );
+
+        Integer userid = new Integer( Integer.parseInt( factjson.get("userid").toString( ) ) );
+    	SimpleDateFormat factSDF = new SimpleDateFormat("yyyy-M-d HH:mm:ss zzz");
+    	Date obsdate = factSDF.parse( factjson.get("obsdate").toString() );
+	Integer obsvalue = new Integer( Integer.parseInt( factjson.get("obsvalue").toString( ) ) );
+        
+    	Observation observation = new Observation( );
+        observation.setUserid( userid );
+	observation.setObsdate ( obsdate );
+	observation.setObsvalue( obsvalue ); 
+    	insert( observation );
+
+    	print("==>nudge " + drools.getRule( ).getName( ) + "->" + 
+		observation.getUserid( )  + ":" + observation.getObsdate( ) );
+end
+
+query "getObservation"
+	observation : Observation( )
+end

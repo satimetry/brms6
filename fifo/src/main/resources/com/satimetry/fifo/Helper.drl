@@ -1,0 +1,6 @@
+package com.satimetry.fifo;
+
+function void print(String txt) {
+   System.out.println(txt);
+}
+

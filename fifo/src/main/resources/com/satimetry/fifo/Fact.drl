@@ -1,0 +1,15 @@
+package com.satimetry.fifo;
+
+import com.satimetry.fifo.Fact;
+
+query "getFactout"
+    fact : Fact( facttype == 0 )
+end
+
+query "getFactin"
+    fact : Fact( facttype == 1 )
+end
+
+query "getNudge"
+	fact : Fact( factname == "Nudge" );
+end

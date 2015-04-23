@@ -1,0 +1,13 @@
+<configuration>
+  <imports>
+    <imports>
+      <import>
+        <type>com.satimetry.nudge.Participant</type>
+      </import>
+      <import>
+        <type>com.satimetry.nudge.FastDiet</type>
+      </import>
+    </imports>
+  </imports>
+  <version>1.0</version>
+</configuration>

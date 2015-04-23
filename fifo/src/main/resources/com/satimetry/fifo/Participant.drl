@@ -1,0 +1,23 @@
+package com.satimetry.fifo;
+
+import org.json.JSONObject;
+import com.satimetry.fifo.Participant;
+
+rule "ruleInsertParticipant"
+	salience 10000
+when
+    	fact : Fact( factname == "Participant" )
+then
+        JSONObject factjson = new JSONObject( fact.getFactjson( ).toString( ) );
+        Integer userid = new Integer( Integer.parseInt( factjson.get("userid").toString( ) ) );
+       	String username = new String( factjson.get("username").toString( )  );
+    	Participant participant = new Participant( userid, username );
+    	insert( participant );
+	System.out.println("==>username=" + username);
+    	System.out.println("==>nudge " + drools.getRule( ).getName( ) + "->" + 
+					participant.getUserid( )  + ":" + participant.getUsername( ) );
+end
+
+query "getParticipant"
+	participant : Participant( )
+end

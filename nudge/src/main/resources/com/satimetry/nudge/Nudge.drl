@@ -1,0 +1,22 @@
+package com.satimetry.nudge;
+
+import com.satimetry.nudge.Msg;
+import com.satimetry.nudge.Participant;
+import com.satimetry.nudge.Observation;
+
+rule "ruleNudge"
+	salience -100
+  	no-loop true
+when
+	$p : Participant( )
+	$m : Msg(userid == $p.userid)
+       	$obscounttotal : Number( intValue > 0) from accumulate(
+      		Observation( $obscount : obsvalue >= 0, $p.userid == userid ) over window:time( 60d ),
+      		count( $obscount ) )
+then
+    String $msgtxt = new String("Nudge says " + $obscounttotal);
+    $m.setMsgtxt($msgtxt);
+    update($m);
+    System.out.println("You're fired! " + $obscounttotal + " times.");
+end
+

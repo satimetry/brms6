@@ -1,0 +1,35 @@
+package com.satimetry.fifo;
+
+import org.json.JSONObject;
+import com.satimetry.fifo.Goal;
+
+rule "ruleInsertGoal"
+	salience 10000
+when
+    	fact : Fact( factname == "Goal" )
+then
+        JSONObject factjson = new JSONObject( fact.getFactjson( ).toString( ) );
+
+        Integer userid = new Integer( Integer.parseInt( factjson.get("userid").toString( ) ) );
+       	String goalname = new String( factjson.get("goalname").toString( )  );
+        Integer target = new Integer( Integer.parseInt( factjson.get("target").toString( ) ) );
+        Integer start = new Integer( Integer.parseInt( factjson.get("start").toString( ) ) );
+        Integer low = new Integer( Integer.parseInt( factjson.get("low").toString( ) ) );
+        Integer high = new Integer( Integer.parseInt( factjson.get("high").toString( ) ) );
+
+    	Goal goal = new Goal(  );
+	goal.setUserid( userid );
+	goal.setGoalname( goalname );
+	goal.setTarget( target );
+	goal.setStart( start );
+	goal.setLow( low );
+	goal.setHigh( high );
+    	insert( goal );
+
+    	System.out.println("==>nudge " + drools.getRule( ).getName( ) + "->" + 
+					goal.getUserid( )  + ":" + goal.getGoalname( ) );
+end
+
+query "getGoal"
+	goal : Goal( )
+end
