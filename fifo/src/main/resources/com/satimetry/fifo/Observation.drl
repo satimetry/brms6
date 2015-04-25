@@ -16,15 +16,17 @@ then
     	SimpleDateFormat factSDF = new SimpleDateFormat("yyyy-M-d HH:mm:ss zzz");
     	Date obsdate = factSDF.parse( factjson.get("obsdate").toString() );
 	Integer obsvalue = new Integer( Integer.parseInt( factjson.get("obsvalue").toString( ) ) );
-        
+        String obsname = factjson.get( "obsname" ).toString( );
+
     	Observation observation = new Observation( );
         observation.setUserid( userid );
+        observation.setObsname( obsname );
 	observation.setObsdate ( obsdate );
 	observation.setObsvalue( obsvalue ); 
     	insert( observation );
 
     	print("==>nudge " + drools.getRule( ).getName( ) + "->" + 
-		observation.getUserid( )  + ":" + observation.getObsdate( ) );
+		observation.getUserid( )  + ":" + observation.getObsname( ) + ":" + observation.getObsdate( ) );
 end
 
 query "getObservation"

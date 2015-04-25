@@ -9,17 +9,17 @@ public class Goal implements java.io.Serializable
 
    static final long serialVersionUID = 1L;
 
-   @org.kie.api.definition.type.Label(value = "User ID")
+   @org.kie.api.definition.type.Label("User ID")
    private int userid;
-   @org.kie.api.definition.type.Label(value = "Goal Name")
+   @org.kie.api.definition.type.Label("Goal Name")
    private java.lang.String goalname;
-   @org.kie.api.definition.type.Label(value = "Target")
+   @org.kie.api.definition.type.Label("Target")
    private int target;
-   @org.kie.api.definition.type.Label(value = "Start")
+   @org.kie.api.definition.type.Label("Start")
    private int start;
-   @org.kie.api.definition.type.Label(value = "Low")
+   @org.kie.api.definition.type.Label("Low")
    private int low;
-   @org.kie.api.definition.type.Label(value = "High")
+   @org.kie.api.definition.type.Label("High")
    private int high;
 
    public Goal()

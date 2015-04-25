@@ -23,7 +23,7 @@ then
 	goal.setTarget( target );
 	goal.setStart( start );
 	goal.setLow( low );
-	goal.setHigh( high );
+
     	insert( goal );
 
     	System.out.println("==>nudge " + drools.getRule( ).getName( ) + "->" + 

@@ -11,7 +11,7 @@ rule "ruleAverageWeight"
 when
       	$participant : Participant()
       	$obsvalueaverage : Number( doubleValue > 0 ) from accumulate(
-         	Observation( $obsvalue : obsvalue > 0, $participant.userid == userid ) over window:time( 7d ),
+         	Observation( $obsvalue : obsvalue > 0, $participant.userid == userid, obsname == "weight" ) over window:time( 7d ),
          	average( $obsvalue ) )
 then
 	Date today = new Date( ); 
@@ -49,7 +49,7 @@ rule "ruleHighWeight"
 when
       	$participant : Participant()
       	$obsvaluehigh : Number( doubleValue > 0 ) from accumulate(
-         	Observation( $obsvalue : obsvalue > 0, $participant.userid == userid ) over window:time( 30d ),
+         	Observation( $obsvalue : obsvalue > 0, $participant.userid == userid, obsname == "weight" ) over window:time( 30d ),
          	max( $obsvalue ) )
 then
 	Date today = new Date( ); 
@@ -86,9 +86,9 @@ rule "ruleChangeWeight"
    	no-loop true
 when
       	$participant : Participant()
-	$goal : Goal( userid == $participant.userid )
+	$goal : Goal( userid == $participant.userid, goalname == "weight" )
       	$obsvaluelow : Number( doubleValue > 0 ) from accumulate(
-         	Observation( $obsvalue : obsvalue > 0, $participant.userid == userid ) over window:time( 30d ),
+         	Observation( $obsvalue : obsvalue > 0, $participant.userid == userid, obsname == "weight" ) over window:time( 30d ),
          	min( $obsvalue ) )
 then
 	Date today = new Date( ); 

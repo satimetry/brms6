@@ -11,12 +11,15 @@ public class Observation implements java.io.Serializable
 
    static final long serialVersionUID = 1L;
 
-   @org.kie.api.definition.type.Label(value = "User ID")
+   @org.kie.api.definition.type.Label("User ID")
    private int userid;
-   @org.kie.api.definition.type.Label(value = "Obs Date")
+   @org.kie.api.definition.type.Label("Obs Date")
    private java.util.Date obsdate;
-   @org.kie.api.definition.type.Label(value = "Obs Value")
+   @org.kie.api.definition.type.Label("Obs Value")
    private int obsvalue;
+
+   @org.kie.api.definition.type.Label(value = "Obs name")
+   private java.lang.String obsname;
 
    public Observation()
    {
@@ -52,11 +55,23 @@ public class Observation implements java.io.Serializable
       this.obsvalue = obsvalue;
    }
 
-   public Observation(int userid, java.util.Date obsdate, int obsvalue)
+   public java.lang.String getObsname()
+   {
+      return this.obsname;
+   }
+
+   public void setObsname(java.lang.String obsname)
+   {
+      this.obsname = obsname;
+   }
+
+   public Observation(int userid, java.util.Date obsdate, int obsvalue,
+         java.lang.String obsname)
    {
       this.userid = userid;
       this.obsdate = obsdate;
       this.obsvalue = obsvalue;
+      this.obsname = obsname;
    }
 
 }
